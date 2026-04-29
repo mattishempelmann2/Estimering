@@ -102,14 +102,15 @@ function [W, mse_hist, conf_tr, err_tr, conf_te, err_te] = ...
 
     % One-hot targets  t_k (see compendium, Eq. 19)
     T_tr = zeros(Ntr, C);
-    for k = 1:Ntr, T_tr(k, y_tr(k)) = 1; end
+    for k = 1:Ntr, T_tr(k, y_tr(k)) = 1; 
+    end
 
     % --- Augment with bias term ([x^T 1]^T, see compendium p.15) ---------
     Xa_tr = [X_tr, ones(Ntr, 1)];     % Ntr x (D+1)
     Xa_te = [X_te, ones(Nte, 1)];
 
     % --- Weight matrix W : (D+1) x C  (so z = Xa*W has columns per class)
-    rng(42);
+    rng(7068);
     W = 0.01 * randn(D+1, C);
 
     mse_hist = zeros(max_iter, 1);
