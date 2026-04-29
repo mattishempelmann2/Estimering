@@ -1,9 +1,9 @@
-%  TTT4275 - Classification of handwritten numbers (MNIST)
-%  Task 1: Nearest-neighbour (NN) classifier using the whole training
+% TTT4275 - Classification of handwritten numbers (MNIST)
+% Task 1: Nearest-neighbour (NN) classifier using the whole training
 %          set as templates (Euclidean distance, chunk-based evaluation).
 %
-%  Expects the file data_all.mat (produced by read09.m) in the same
-%  directory.  Variables in data_all.mat:
+% Expects the file data_all.mat (produced by read09.m) in the same
+% directory.  Variables in data_all.mat:
 %       trainv   (60000 x 784, uint8)   training vectors
 %       trainlab (60000 x 1,   uint8)   training labels (0..9)
 %       testv    (10000 x 784, uint8)   test vectors
@@ -41,7 +41,7 @@ for chunkStart = 1:chunkSize:numTest
     X         = testv(chunkStart:chunkEnd, :);                  % (chunk x 784)
     testNormSq = sum(X.^2, 2);                                  % (chunk x 1)
 
-    % Squared Euclidean distance between every test row and every template.
+    %Squared Euclidean distance between every test row and every template.
     D2 = bsxfun(@plus, testNormSq, trainNormSq) - 2*(X * trainv.');  % chunk x numTrain
 
     [~, idx] = min(D2, [], 2);                                  % nearest template per sample
@@ -53,7 +53,7 @@ end
 runtime = toc;
 fprintf('NN classification finished in %.1f s\n', runtime);
 
-%  Confusion matrix and error rate
+%Confusion matrix and error rate
 confMat = zeros(numClass, numClass);
 for i = 1:numTest
     confMat(testlab(i)+1, predLab(i)+1) = confMat(testlab(i)+1, predLab(i)+1) + 1;

@@ -44,13 +44,14 @@ for f = 1:D
     title(feature_names{f});
     xlabel('Value [cm]'); ylabel('Count');
 end
+
 sgtitle('Feature histograms by class');
 saveas(gcf,'feature_histograms.png');
 
 %Histogram overlap score (smaller score = less overlap)
 overlap = zeros(1,D);
 for f = 1:D
-    edges = linspace(min(all_data(:,f)), max(all_data(:,f)), 30);
+    edges = linspace(min(all_data(:,f)), max(all_data(:,f)), 31);
     s = 0;
     for c1 = 1:C
         for c2 = c1+1:C
