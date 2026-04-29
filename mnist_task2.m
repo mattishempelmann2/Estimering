@@ -1,11 +1,9 @@
-%% =====================================================================
 %  TTT4275 - Classification of handwritten numbers (MNIST)
 %  Task 2: Cluster the training set (k-means, M = 64 per class) and
 %          classify with (i) 1-NN and (ii) K-NN, K = 7, on the 640
 %          cluster templates.
 %
 %  Expects data_all.mat (produced by read09.m) in the same directory.
-% =====================================================================
 
 clear; close all; clc;
 load('data_all.mat');                 % provides trainv, trainlab, testv, testlab
@@ -20,13 +18,11 @@ numClass = 10;                        % digits 0..9
 M        = 64;                        % clusters per class
 K        = 7;                         % K for K-NN
 
-%% --------------------------------------------------------------------
 %  Per-class k-means clustering
 %  For every class i the ~6000 training vectors are clustered into M
 %  templates.  The 64*10 = 640 cluster centres are stacked into a
 %  single template matrix C with a matching label vector Clab.
-% --------------------------------------------------------------------
-fprintf('Task 2 - k-means clustering (M = %d per class)\n', M);
+fprintf('Task 2, k-means clustering (M = %d per class)\n', M);
 C    = zeros(numClass*M, 784);
 Clab = zeros(numClass*M, 1);
 tic
@@ -43,11 +39,9 @@ end
 clusterTime = toc;
 fprintf('Clustering finished in %.1f s\n', clusterTime);
 
-%% --------------------------------------------------------------------
 %  (b) Nearest-neighbour classifier using the 640 cluster templates.
 %      Because the template set is small we can compute the full
 %      10000 x 640 distance matrix in one shot.
-% --------------------------------------------------------------------
 tic
 CnormSq   = sum(C.^2, 2).';                         % 1 x 640
 TestNormSq = sum(testv.^2, 2);                      % 10000 x 1
@@ -68,11 +62,9 @@ fprintf('Error rate : %.2f %%   (classification time %.2f s)\n', 100*err_NN, nnT
 disp('Confusion matrix (rows = true, cols = predicted):');
 disp(confMat_NN);
 
-%% --------------------------------------------------------------------
 %  (c) K-NN classifier (K = 7) using the same 640 cluster templates.
 %      For every test sample we pick the K nearest templates and vote
 %      on the most frequent label.
-% --------------------------------------------------------------------
 tic
 [~, sortedIdx] = sort(D2, 2, 'ascend');             % 10000 x 640
 knnIdx = sortedIdx(:, 1:K);                         % 10000 x K

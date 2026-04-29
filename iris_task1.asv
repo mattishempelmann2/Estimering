@@ -27,7 +27,9 @@ Ni = 50;                             % samples per class
 alpha    = 0.005;                    % step factor in Eq. 23
 max_iter = 3000;                     % gradient iterations
 
+%% =====================================================================
 %  CASE 1 : first 30 training, last 20 test   (per class)
+%  =====================================================================
 fprintf('=========================================================\n');
 fprintf('CASE 1 : first 30 train, last 20 test\n');
 fprintf('=========================================================\n');
@@ -130,7 +132,7 @@ function [W, mse_hist, conf_tr, err_tr, conf_te, err_te] = ...
     [~, pred_tr] = max(Xa_tr * W, [], 2);
     [~, pred_te] = max(Xa_te * W, [], 2);
 
-    %Confusion matrices (rows = true, cols = predicted)
+    %Confusion matrices (rows = true, cols = predicted) --------------
     conf_tr = zeros(C, C);
     conf_te = zeros(C, C);
     for i = 1:C

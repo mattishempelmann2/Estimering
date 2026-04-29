@@ -1,19 +1,16 @@
-%% TTT4275 - The Iris Task - Part 2: Features and Linear Separability
-% Histogram analysis and progressive feature removal using the same
-% linear MSE classifier as Part 1.
-%
-% Equations used (compendium "Part III - Classification"):
+%% TTT4275 The Iris Task. Part 2: Features and Linear Separability
+% Equations used (compendium "Part III Classification"):
 %   Eq. 19 : MSE = (1/2) * sum_k (g_k - t_k)^T (g_k - t_k)
 %   Eq. 20 : g_ik = 1 / (1 + exp(-z_ik)),  z_k = W*x_k
 %   Eq. 22 : grad_W MSE = sum_k [(g_k - t_k) o g_k o (1 - g_k)] x_k^T
 %   Eq. 23 : W(m) = W(m-1) - alpha * grad_W MSE
 %
 % The first 30 samples per class are used for training and the last 20
-% for testing (project task 2).
+% for testing.
 
 clear; close all; clc;
 
-%% Load the Iris dataset
+% Load the Iris dataset
 x1all = load('class_1', '-ascii');   % Setosa     (50 x 4)
 x2all = load('class_2', '-ascii');   % Versicolor (50 x 4)
 x3all = load('class_3', '-ascii');   % Virginica  (50 x 4)
@@ -27,9 +24,7 @@ feature_names = {'Sepal Length','Sepal Width','Petal Length','Petal Width'};
 alpha    = 0.005;
 max_iter = 3000;
 
-%% =====================================================================
-%  Task 2a : histograms for each feature / class
-%  =====================================================================
+%Task 2a: histograms for each feature / class
 all_data   = [x1all; x2all; x3all];
 all_labels = [ones(Ni,1); 2*ones(Ni,1); 3*ones(Ni,1)];
 
@@ -43,7 +38,8 @@ for f = 1:D
                   'FaceColor', colors{c}, 'FaceAlpha', 0.4, ...
                   'EdgeColor','none');
     end
-    hold off; grid on;
+    hold off; 
+    grid on;
     legend(class_names,'Location','best');
     title(feature_names{f});
     xlabel('Value [cm]'); ylabel('Count');
@@ -51,7 +47,7 @@ end
 sgtitle('Feature histograms by class');
 saveas(gcf,'feature_histograms.png');
 
-%% Histogram overlap score (smaller score = less overlap) ---------------
+%Histogram overlap score (smaller score = less overlap)
 overlap = zeros(1,D);
 for f = 1:D
     edges = linspace(min(all_data(:,f)), max(all_data(:,f)), 30);
@@ -71,16 +67,14 @@ for f = 1:D
     fprintf('  %-13s : %.4f\n', feature_names{f}, overlap(f));
 end
 
-% Remove features in order of most-overlapping first
+%Remove features in order of most-overlapping first
 [~, rm_order] = sort(overlap, 'descend');
 fprintf('\nRemoval order (most -> least overlapping):\n');
 for i = 1:D
     fprintf('  %d. %s\n', i, feature_names{rm_order(i)});
 end
 
-%% =====================================================================
-%  Train/test with decreasing number of features
-%  =====================================================================
+%Train/test with decreasing number of features
 experiments = cell(1,4);
 experiments{1} = 1:D;                      % all features
 experiments{2} = setdiff(1:D, rm_order(1),   'stable');
@@ -88,7 +82,7 @@ experiments{3} = setdiff(1:D, rm_order(1:2), 'stable');
 experiments{4} = setdiff(1:D, rm_order(1:3), 'stable');
 
 results = struct();
-
+%Train linear classifier with augmented feature set
 for e = 1:4
     feat = experiments{e};
     fprintf('\n=========================================================\n');
@@ -113,9 +107,7 @@ for e = 1:4
     results(e).eTe    = eTe;
 end
 
-%% =====================================================================
-%  Summary table
-%  =====================================================================
+%Summary table
 fprintf('\n=========================================================\n');
 fprintf('SUMMARY : error rates vs. number of features\n');
 fprintf('=========================================================\n');
@@ -127,9 +119,7 @@ for e = 1:4
 end
 
 
-%% =====================================================================
-%  Helper : same as in Part 1, Eq. 19-23 of the compendium.
-%  =====================================================================
+%Helper: same as in Part 1, Eq. 19-23 of the compendium.
 function [W, mse_hist, conf_tr, err_tr, conf_te, err_te] = ...
     trainLinearMSE(x1all, x2all, x3all, trIdx, teIdx, C, alpha, max_iter)
 
