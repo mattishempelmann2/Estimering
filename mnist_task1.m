@@ -55,7 +55,7 @@ disp(confMat);
 
 save('mnist_task1_result.mat', 'confMat', 'errorRate', 'predLab', 'nnIdx', 'runtime');
 
-%  Plot misclassified and correctly classified numbers
+% Plot misclassified and correctly classified numbers
 wrongIdx   = find(predLab ~= testlab);
 correctIdx = find(predLab == testlab);
 

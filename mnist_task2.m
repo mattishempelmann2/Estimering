@@ -15,7 +15,7 @@ numClass = 10;
 M        = 64;                        
 K        = 7;                         
 
-%  Per-class k-means clustering
+% Per-class k-means clustering
 
 fprintf('Task 2, k-means clustering (M = %d per class)\n', M);
 C    = zeros(numClass*M, 784);
@@ -34,7 +34,7 @@ end
 clusterTime = toc;
 fprintf('Clustering finished in %.1f s\n', clusterTime);
 
-%  (b) Nearest-neighbour classifier
+% (b) Nearest-neighbour classifier
 tic
 CnormSq   = sum(C.^2, 2).';                         
 TestNormSq = sum(testv.^2, 2);                      
@@ -55,9 +55,9 @@ fprintf('Error rate : %.2f %%   (classification time %.2f s)\n', 100*err_NN, nnT
 disp('Confusion matrix (rows = true, columns = predicted):');
 disp(confMat_NN);
 
-%  (c) K-NN classifier (K = 7) using the same 640 cluster templates.
-%      For every test sample we pick the K nearest templates and vote
-%      on the most frequent label.
+% (c) K-NN classifier (K = 7) using the same 640 cluster templates.
+% For every test sample we pick the K nearest templates and vote
+% on the most frequent label.
 tic
 [~, sortedIdx] = sort(D2, 2, 'ascend');             
 knnIdx = sortedIdx(:, 1:K);                         
@@ -65,7 +65,7 @@ knnLab = Clab(knnIdx);
 
 predLab_KNN = zeros(numTest,1);
 for i = 1:numTest
-    predLab_KNN(i) = mode(knnLab(i,:));             % mode = majority vote
+    predLab_KNN(i) = mode(knnLab(i,:));  % mode = majority vote
 end
 knnTime = toc;
 
