@@ -88,7 +88,7 @@ function [W, mse_hist, conf_tr, err_tr, conf_te, err_te] = ...
     Xa_te = [X_te, ones(Nte, 1)];
 
     %Weight matrix W: (D+1) x C
-    rng(7068);
+    rng(7068); % for replication
     W = 0.01 * randn(D+1, C); %fill W with small random numbers. 
     % Could also be 0, works the same as long as not large value (convergence
     % stops for W = 10 * randn(D+1,C))

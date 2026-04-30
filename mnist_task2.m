@@ -4,6 +4,7 @@
 
 clear; close all; clc;
 load('data_all.mat');                 
+rng(7068); % So kmean is deterministic and returns same value each time.
 
 trainv   = double(trainv);
 testv    = double(testv);
