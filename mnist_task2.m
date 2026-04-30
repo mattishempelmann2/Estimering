@@ -4,7 +4,7 @@
 
 clear; close all; clc;
 load('data_all.mat');                 
-rng(7068); % So kmean is deterministic and returns same value each time.
+rng(7068); % So kmean func is deterministic.
 
 trainv   = double(trainv);
 testv    = double(testv);
@@ -39,7 +39,7 @@ fprintf('Clustering finished in %.1f s\n', clusterTime);
 tic
 CnormSq   = sum(C.^2, 2).';                         
 TestNormSq = sum(testv.^2, 2);                      
-D2 = bsxfun(@plus, TestNormSq, CnormSq) - 2*(testv * C.');   % 10000 x 640
+D2 = bsxfun(@plus, TestNormSq, CnormSq) - 2*(testv * C.'); % 10000 x 640
 
 [~, nnIdx]  = min(D2, [], 2);
 predLab_NN  = Clab(nnIdx);
@@ -66,7 +66,7 @@ knnLab = Clab(knnIdx);
 
 predLab_KNN = zeros(numTest,1);
 for i = 1:numTest
-    predLab_KNN(i) = mode(knnLab(i,:));  % mode = majority vote
+    predLab_KNN(i) = mode(knnLab(i,:)); % mode = majority vote
 end
 knnTime = toc;
 
@@ -82,7 +82,7 @@ disp('Confusion matrix (rows = true, columns = predicted):');
 disp(confMat_KNN);
 
 
-%  Visualize 8 centroids per class
+% plot 8 centroids per class
 figure('Name','K-means cluster centroids (8 per class)','Color','w', ...
        'Position',[100 100 900 1100]);
 

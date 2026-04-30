@@ -93,7 +93,7 @@ function [W, mse_hist, conf_tr, err_tr, conf_te, err_te] = ...
 
     mse_hist = zeros(max_iter, 1);
 
-    %Gradient descent loop (batch)
+    %Gradient descent loop
     for m = 1:max_iter
         Z = Xa_tr * W; % Ntr x C   z_k = W*x_k
         G = 1 ./ (1 + exp(-Z)); % Eq. 20, sigmoid

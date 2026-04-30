@@ -1,5 +1,5 @@
 % MNIST task
-% Task 1: Nearest-neighbour (NN) classifier using the whole training set as templates
+% Task 1: Nearest-neighbour classifier using the whole training set as templates
 
 clear; close all; clc;
 load('data_all.mat');
@@ -19,7 +19,7 @@ chunkSize = 1000;
 trainNormSq = sum(trainv.^2, 2)';     
 
 predLab = zeros(numTest,1);           
-nnIdx   = zeros(numTest,1);        % index of the nearest training template
+nnIdx   = zeros(numTest,1); % index of the nearest training template
 
 fprintf('Task 1, NN classifier with full training set (%d templates)\n', numTrain);
 tic
@@ -31,7 +31,7 @@ for chunkStart = 1:chunkSize:numTest
     %Finding all distances
     D2 = bsxfun(@plus, testNormSq, trainNormSq) - 2*(X * trainv.'); 
 
-    [~, idx] = min(D2, [], 2);      % nearest template per sample
+    [~, idx] = min(D2, [], 2); % nearest template per sample
     nnIdx(chunkStart:chunkEnd)   = idx;
     predLab(chunkStart:chunkEnd) = trainlab(idx);
 
