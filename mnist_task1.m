@@ -15,11 +15,11 @@ numTest   = size(testv,1);
 numClass  = 10;                       
 chunkSize = 1000;                     
 
-%  Equation 8
+%Equation 8
 trainNormSq = sum(trainv.^2, 2)';     
 
 predLab = zeros(numTest,1);           
-nnIdx   = zeros(numTest,1);           % index of the nearest training template
+nnIdx   = zeros(numTest,1);        % index of the nearest training template
 
 fprintf('Task 1, NN classifier with full training set (%d templates)\n', numTrain);
 tic
@@ -31,7 +31,7 @@ for chunkStart = 1:chunkSize:numTest
     %Finding all distances
     D2 = bsxfun(@plus, testNormSq, trainNormSq) - 2*(X * trainv.'); 
 
-    [~, idx] = min(D2, [], 2);                                  % nearest template per sample
+    [~, idx] = min(D2, [], 2);      % nearest template per sample
     nnIdx(chunkStart:chunkEnd)   = idx;
     predLab(chunkStart:chunkEnd) = trainlab(idx);
 

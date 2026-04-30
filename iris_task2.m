@@ -1,16 +1,10 @@
 %% TTT4275 The Iris Task. Part 2: Features and Linear Separability
-% Equations used (compendium "Part III Classification"):
-%   Eq. 19 : MSE = (1/2) * sum_k (g_k - t_k)^T (g_k - t_k)
-%   Eq. 20 : g_ik = 1 / (1 + exp(-z_ik)),  z_k = W*x_k
-%   Eq. 22 : grad_W MSE = sum_k [(g_k - t_k) o g_k o (1 - g_k)] x_k^T
-%   Eq. 23 : W(m) = W(m-1) - alpha * grad_W MSE
-%
 % The first 30 samples per class are used for training and the last 20
 % for testing.
 
 clear; close all; clc;
 
-% Load the Iris dataset
+% Load dataset
 x1all = load('class_1', '-ascii');   % Setosa     (50 x 4)
 x2all = load('class_2', '-ascii');   % Versicolor (50 x 4)
 x3all = load('class_3', '-ascii');   % Virginica  (50 x 4)
@@ -83,7 +77,7 @@ experiments{3} = setdiff(1:D, rm_order(1:2), 'stable');
 experiments{4} = setdiff(1:D, rm_order(1:3), 'stable');
 
 results = struct();
-%Train linear classifier with augmented feature set
+%Train linear classifier with augmented features
 for e = 1:4
     feat = experiments{e};
     fprintf('\n=========================================================\n');

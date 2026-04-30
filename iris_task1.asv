@@ -1,20 +1,12 @@
 %% TTT4275 - The Iris Task - Part 1: Design/Training and Generalization
-% Linear MSE classifier for the Iris dataset, implemented exactly as
-% described in part 3 of the compendium, chapters 2.4
-% (linear discriminant classifier) and 3.2 (MSE-based training).
-%
-% Equations used (numbering follows the compendium):
-%   Eq. 7  : Linear discriminant g_i(x) = w_i^T x + w_i0
-%   Eq. 19 : MSE = (1/2) * sum_k (g_k - t_k)^T (g_k - t_k)
-%   Eq. 20 : Sigmoid squashing  g_ik = 1 / (1 + exp(-z_ik)),  z_k = W*x_k
-%   Eq. 22 : grad_W MSE = sum_k [(g_k - t_k) o g_k o (1 - g_k)] x_k^T
-%   Eq. 23 : W(m) = W(m-1) - alpha * grad_W MSE
+% Linear MSE classifier, implemented as
+% described in the compendium part 3, chapters 2.4 and 3.2.
+% eq. numbers reference the compendium
 
 clear; close all; clc;
 
-% Load the Iris dataset
-% Each file : 50 samples x 4 features
-% (sepal length, sepal width, petal length, petal width) [cm]
+% Load dataset
+% Each file: 50 samples x 4 features
 x1all = load('class_1', '-ascii');   % Setosa     (50 x 4)
 x2all = load('class_2', '-ascii');   % Versicolor (50 x 4)
 x3all = load('class_3', '-ascii');   % Virginica  (50 x 4)
@@ -23,13 +15,11 @@ C  = 3;                              % number of classes
 D  = size(x1all, 2);                 % feature dimension (4)
 Ni = 50;                             % samples per class
 
-% Hyperparameters (tuned by trial and error, as specified in compendium p.17)
+%Parameters (tuned by trial and error, as specified in compendium p.17)
 alpha    = 0.005;                    % step factor in Eq. 23
 max_iter = 3000;                     % gradient iterations
 
-%% =====================================================================
 %  CASE 1 : first 30 training, last 20 test   (per class)
-%  =====================================================================
 fprintf('=========================================================\n');
 fprintf('CASE 1 : first 30 train, last 20 test\n');
 fprintf('=========================================================\n');
@@ -132,7 +122,7 @@ function [W, mse_hist, conf_tr, err_tr, conf_te, err_te] = ...
     [~, pred_tr] = max(Xa_tr * W, [], 2);
     [~, pred_te] = max(Xa_te * W, [], 2);
 
-    %Confusion matrices (rows = true, cols = predicted) --------------
+    %Confusion matrices (rows = true, cols = predicted)
     conf_tr = zeros(C, C);
     conf_te = zeros(C, C);
     for i = 1:C
