@@ -7,19 +7,19 @@ clear; close all; clc;
 
 % Load dataset
 % Each file: 50 samples x 4 features
-x1all = load('class_1', '-ascii');   % Setosa     (50 x 4)
-x2all = load('class_2', '-ascii');   % Versicolor (50 x 4)
-x3all = load('class_3', '-ascii');   % Virginica  (50 x 4)
+x1all = load('class_1', '-ascii');% Setosa     (50 x 4)
+x2all = load('class_2', '-ascii');% Versicolor (50 x 4)
+x3all = load('class_3', '-ascii');% Virginica  (50 x 4)
 
-C  = 3;                              % number of classes
-D  = size(x1all, 2);                 % feature dimension (4)
-Ni = 50;                             % samples per class
+C  = 3; % number of classes
+D  = size(x1all, 2); % feature dimension (4)
+Ni = 50; % samples per class
 
 %Parameters (tuned by trial and error, as specified in compendium p.17)
-alpha    = 0.005;                    % step factor in Eq. 23
-max_iter = 3000;                     % max gradient iterations
+alpha    = 0.005; % step factor in Eq. 23
+max_iter = 3000; % max gradient iterations
 
-%  CASE 1: first 30 training, last 20 test
+% CASE 1: first 30 training, last 20 test
 fprintf('CASE 1 : first 30 train, last 20 test\n');
 
 [W1, mse1, conf_tr1, err_tr1, conf_te1, err_te1] = ...
@@ -37,7 +37,7 @@ xlabel('Iteration m'); ylabel('MSE (Eq. 19)');
 title('Case 1 : MSE convergence');
 saveas(gcf, 'mse_case1.png');
 
-%  CASE 2: last 30 training, first 20 test
+%CASE 2: last 30 training, first 20 test
 fprintf('CASE 2 : last 30 train, first 20 test\n');
 
 [W2, mse2, conf_tr2, err_tr2, conf_te2, err_te2] = ...
@@ -97,10 +97,10 @@ function [W, mse_hist, conf_tr, err_tr, conf_te, err_te] = ...
 
     %Gradient descent loop (batch)
     for m = 1:max_iter
-        Z = Xa_tr * W;                            % Ntr x C   z_k = W*x_k
-        G = 1 ./ (1 + exp(-Z));                   % Eq. 20, sigmoid
+        Z = Xa_tr * W; % Ntr x C   z_k = W*x_k
+        G = 1 ./ (1 + exp(-Z)); % Eq. 20, sigmoid
 
-        E = G - T_tr;                             % (g_k - t_k)
+        E = G - T_tr; % (g_k - t_k)
 
         %Eq. 19
         mse_hist(m) = 0.5 * sum(E(:).^2);
