@@ -20,9 +20,7 @@ alpha    = 0.005;                    % step factor in Eq. 23
 max_iter = 3000;                     % max gradient iterations
 
 %  CASE 1: first 30 training, last 20 test
-fprintf('=========================================================\n');
 fprintf('CASE 1 : first 30 train, last 20 test\n');
-fprintf('=========================================================\n');
 
 [W1, mse1, conf_tr1, err_tr1, conf_te1, err_te1] = ...
     trainLinearMSE(x1all, x2all, x3all, 1:30, 31:50, C, alpha, max_iter);
@@ -40,9 +38,7 @@ title('Case 1 : MSE convergence');
 saveas(gcf, 'mse_case1.png');
 
 %  CASE 2: last 30 training, first 20 test
-fprintf('\n=========================================================\n');
 fprintf('CASE 2 : last 30 train, first 20 test\n');
-fprintf('=========================================================\n');
 
 [W2, mse2, conf_tr2, err_tr2, conf_te2, err_te2] = ...
     trainLinearMSE(x1all, x2all, x3all, 21:50, 1:20, C, alpha, max_iter);
@@ -60,9 +56,7 @@ title('Case 2 : MSE convergence');
 saveas(gcf, 'mse_case2.png');
 
 %Summary
-fprintf('\n=========================================================\n');
-fprintf('SUMMARY\n');
-fprintf('=========================================================\n');
+fprintf('Summary:\n');
 fprintf('                       Train err   Test err\n');
 fprintf('Case 1 (first 30 tr) : %6.2f %%   %6.2f %%\n', err_tr1, err_te1);
 fprintf('Case 2 (last 30 tr)  : %6.2f %%   %6.2f %%\n', err_tr2, err_te2);

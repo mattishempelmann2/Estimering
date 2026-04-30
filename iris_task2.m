@@ -80,10 +80,8 @@ results = struct();
 %Train linear classifier with augmented features
 for e = 1:4
     feat = experiments{e};
-    fprintf('\n=========================================================\n');
     fprintf('Experiment %d : %d features (%s)\n', e, numel(feat), ...
             strjoin(feature_names(feat), ', '));
-    fprintf('=========================================================\n');
 
     [~, ~, cTr, eTr, cTe, eTe] = ...
         trainLinearMSE(x1all(:,feat), x2all(:,feat), x3all(:,feat), ...
@@ -103,9 +101,7 @@ for e = 1:4
 end
 
 %Summary table
-fprintf('\n=========================================================\n');
-fprintf('SUMMARY : error rates vs. number of features\n');
-fprintf('=========================================================\n');
+fprintf('Summary: error rates vs. number of features\n');
 fprintf('# feat   Train err   Test err    Features\n');
 for e = 1:4
     fprintf('  %d       %6.2f %%    %6.2f %%   (%s)\n', ...
