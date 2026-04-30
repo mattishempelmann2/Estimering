@@ -53,7 +53,6 @@ fprintf('Error rate : %.2f %%   (%d / %d misclassified)\n', ...
 disp('Confusion matrix (rows = true class 0..9, columns = predicted 0..9):');
 disp(confMat);
 
-save('mnist_task1_result.mat', 'confMat', 'errorRate', 'predLab', 'nnIdx', 'runtime');
 
 % Plot misclassified and correctly classified numbers
 wrongIdx   = find(predLab ~= testlab);
