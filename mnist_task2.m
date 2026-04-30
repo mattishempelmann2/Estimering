@@ -85,3 +85,26 @@ save('mnist_task2_result.mat', ...
      'confMat_NN','err_NN','predLab_NN','nnTime', ...
      'confMat_KNN','err_KNN','predLab_KNN','knnTime', ...
      'clusterTime','M','K');
+%  Visualize 8 centroids per class
+figure('Name','K-means cluster centroids (8 per class)','Color','w', ...
+       'Position',[100 100 900 1100]);
+
+nShow = 8;
+for i = 0:numClass-1
+    for j = 1:nShow
+        idx = i*M + j;                      
+        subplot(numClass, nShow, i*nShow + j);
+        img = reshape(C(idx,:), 28, 28)';
+        imagesc(img);
+        colormap(gca, gray);
+        axis image off;
+        if j == 1
+            ylabel(sprintf('digit %d', i), ...
+                   'FontSize', 9, 'FontWeight', 'bold', 'Rotation', 0, ...
+                   'HorizontalAlignment', 'right', 'VerticalAlignment', 'middle');
+        end
+    end
+end
+
+sgtitle(sprintf('K-means centroids  (M = %d per class, 8 shown)', M), ...
+        'FontSize', 13, 'FontWeight', 'bold');
