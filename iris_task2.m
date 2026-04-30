@@ -1,4 +1,4 @@
-%% TTT4275 The Iris Task. Part 2: Features and Linear Separability
+% Task 1.2, Features and linear separability
 % The first 30 samples per class are used for training and the last 20
 % for testing.
 

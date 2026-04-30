@@ -1,4 +1,4 @@
-% TTT4275 - Classification of handwritten numbers.
+% MNIST task
 % Task 1: Nearest-neighbour (NN) classifier using the whole training set as templates
 
 clear; close all; clc;

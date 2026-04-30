@@ -1,6 +1,4 @@
-%% TTT4275 - The Iris Task - Part 1: Design/Training and Generalization
-% Linear MSE classifier, implemented as
-% described in the compendium part 3, chapters 2.4 and 3.2.
+% Linear MSE classifier, implemented as described in the compendium part 3, chapters 2.4 and 3.2.
 % eq. numbers reference the compendium
 
 clear; close all; clc;

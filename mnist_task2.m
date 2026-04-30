@@ -1,4 +1,4 @@
-% TTT4275 - Classification of handwritten numbers (MNIST)
+% MNIST task
 % Task 2: Cluster the training set (M = 64 per class) and
 % classify with (1.) 1-NN and (2.) 7-NN, on the 640 cluster templates.
 
